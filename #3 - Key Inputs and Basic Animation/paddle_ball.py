@@ -1,5 +1,4 @@
 # Import and initalize pygame
-from operator import truediv
 import pygame
 import sys
 pygame.init()
