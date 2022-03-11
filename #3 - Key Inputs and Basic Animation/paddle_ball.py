@@ -5,9 +5,9 @@ import sys
 pygame.init()
 
 # Main window
-screen = pygame.display.set_mode((500,400))
+screen = pygame.display.set_mode((500, 400))
 
-# Game data 
+# Game data
 paddle_x = 20
 paddle_y = 20
 paddleUp = False
@@ -15,6 +15,8 @@ paddleDown = False
 
 ball_x = 250
 ball_y = 200
+x_dir = 1
+y_dir = 1
 
 # Game loop
 while True:
@@ -36,20 +38,39 @@ while True:
                 paddleDown = False
 
     # Clear the screen
-    screen.fill((0,0,0))
+    screen.fill((0, 0, 0))
 
     # Game code
     if paddleUp:
         paddle_y -= 0.1
-    
-    if paddleDown: 
+
+    if paddleDown:
         paddle_y += 0.1
 
     # Draw paddle
-    pygame.draw.rect(screen, (255,0,0), (paddle_x, paddle_y, 25, 100))
+    pygame.draw.rect(screen, (255, 0, 0), (paddle_x, paddle_y, 25, 100))
 
     # Draw ball
-    pygame.draw.circle(screen, (255,255,255), (ball_x, ball_y), 10)
+    ball_x += 2 * x_dir
+    ball_y += 2 * y_dir
+
+    if ball_y + 10 > 400:
+        ball_y = 390
+        y_dir *= -1
+
+    if ball_y - 10 < 0:
+        ball_y = 10
+        y_dir *= -1
+
+    if ball_x + 10 > 500:
+        ball_x = 490
+        x_dir *= -1
+
+    if ball_x - 10 < 0:
+        ball_x = 10
+        x_dir *= -1
+
+    pygame.draw.circle(screen, (255, 255, 255), (ball_x, ball_y), 10)
 
     # Update main window
     pygame.display.flip()
